@@ -1,0 +1,10 @@
+if (exist("i") == 0 || i < 0) i = 0     #もしiが定義されていない,もしくはi<0の時,i=0と定義
+ set title "animation"     #titleの設定
+ time = sprintf("t=%d",i)     #ステップ数をtimeと定義
+ set label time at 7,0.7     #timeで定義したものを7,0.7の座標に表示
+ plot sin(x-i)     #グラフプロット
+ i = i + 1     #カウントアップ
+ pause 0.1     #停止時間の調整
+ reset     #setしたものをリセット
+if(i <= 100) reread     #100まで繰り返す
+i = -1     #終了後iを-1にする
