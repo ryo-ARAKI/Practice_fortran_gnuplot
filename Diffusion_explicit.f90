@@ -2,7 +2,7 @@ module subprog_Laplace_time
 
   implicit none
 contains
-  !To allocate all matricies
+ !Subroutine to allocate all matricies
   !To determine grid particions
   subroutine allocate_values(phi, phi2, x, n1, n2, d1, d2)
     real(8), allocatable :: phi(:,:)
@@ -44,7 +44,7 @@ contains
     end do
   end subroutine allocate_values
 
-  !To set Dirichlet boundary conditions
+ !Subroutine to set Dirichlet boundary conditions
   subroutine set_dbc(phi, phi2, x, n1, n2, d1, d2)
     integer, intent(in) :: n1, n2
     real(8) phi(n1,n2)
@@ -74,7 +74,7 @@ contains
   end subroutine set_dbc
 
 
-  !To calculate (and return) error
+ !Subroutine to calculate (and return) error
   function check_steady(phi, phi2, n1, n2) result(er)
     integer, intent(in) :: n1, n2
     real(8), intent(in) :: phi(n1,n2)
@@ -90,6 +90,7 @@ contains
     end do
   end function check_steady
 
+ !Subroutine to output results
   subroutine output(phi, x, n1, n2,istep)
     integer, intent(in) :: n1, n2, istep
     real(8), intent(in) :: phi(n1,n2)
@@ -98,6 +99,7 @@ contains
     integer :: fo = 11
     !Open new file for istep ==1
     !Open the same file for istep>1
+    !It is not working well
     if(istep == 1) then
       open(fo, file = 'output_ex6_19.d', status='replace', action = 'write')
     else
@@ -119,26 +121,27 @@ contains
     close(fo)
   end subroutine output
 
-  subroutine output_final(phi, x, n1, n2)
-    integer, intent(in) :: n1, n2
-    real(8), intent(in) :: phi(n1,n2)
-    real(8), intent(in) :: x(2,n1,n2)
-    integer i, j
-    integer :: fo = 11
-    !Open new file for istep ==1
-    !Open the same file for istep>1
-      open(fo, file = 'output_ex6_19_final.d', status='replace', action = 'write')
-
-    do j = 1, n2
-      do i = 1, n1
-        ! write(*,'(100f7.3)') phi(i,:)
-        write(fo,'(3e12.4)') x(:,i,j), phi(i,j)
-      enddo
-      write(fo,*) ''
-    enddo
-
-    close(fo)
-  end subroutine output_final
+ !Subroutine to output final result
+  ! subroutine output_final(phi, x, n1, n2)
+  !   integer, intent(in) :: n1, n2
+  !   real(8), intent(in) :: phi(n1,n2)
+  !   real(8), intent(in) :: x(2,n1,n2)
+  !   integer i, j
+  !   integer :: fo = 11
+  !   !Open new file for istep ==1
+  !   !Open the same file for istep>1
+  !     open(fo, file = 'output_ex6_19_final.d', status='replace', action = 'write')
+  !
+  !   do j = 1, n2
+  !     do i = 1, n1
+  !       ! write(*,'(100f7.3)') phi(i,:)
+  !       write(fo,'(3e12.4)') x(:,i,j), phi(i,j)
+  !     enddo
+  !     write(fo,*) ''
+  !   enddo
+  !
+  !   close(fo)
+  ! end subroutine output_final
 
 end module subprog_Laplace_time
 
@@ -182,7 +185,7 @@ program main
   end do
 
   write(*,*) "Loop number is: ", istep
-  call output_final(phi, x, n1, n2)
+  ! call output_final(phi, x, n1, n2)
 
 
 end program main
