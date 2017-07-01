@@ -101,9 +101,9 @@ contains
     !Open the same file for istep>1
     !It is not working well
     if(istep == 1) then
-      open(fo, file = 'output_ex6_19.d', status='replace', action = 'write')
+      open(fo, file = 'Diffusion_explicit.d', status='new', action = 'write')
     else
-      open(fo, file = 'output_ex6_19.d', position='append', action = 'write')
+      open(fo, file = 'Diffusion_explicit.d', position='append', action = 'write')
     endif
 
     do j = 1, n2
@@ -167,7 +167,7 @@ program main
   phi(2:n1-1, 2:n2-1) = 0.0d0
   call set_dbc(phi, phi2, x, n1, n2, d1, d2)
 
-  do istep = 1, nstep
+  do istep = 1, nstep !Time development
     do j = 2, n2-1
       do i = 1, n1-1
         phi2(i,j) = phi(i,j) &
@@ -175,7 +175,7 @@ program main
                     + d2 * (phi(i  ,j-1) -2.0d0 * phi(i,j) + phi(i  ,j+1))
       end do
     end do
-  er = check_steady(phi, phi2, n1, n2)
+  er = check_steady(phi, phi2, n1, n2)  !Check time steadyness
   phi(:,:) = phi2(:,:)
   !Output all information for each 10 time step
   if(mod(istep,10)==0) then

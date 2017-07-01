@@ -8,7 +8,7 @@ set nokey
 #size 960,960: size of output
 set term gif animate optimize delay 10 size 960,960
 #Set the name of output file
-set output 'movie_Diffusion_explicit.gif'
+set output 'movie_Diffusion_implicit.gif'
 
 #Set 3-D display using color map
 set pm3d
@@ -24,12 +24,12 @@ set cbrange[-1:1]
 
 #Set variables
 n0 = 1    # ループ変数の初期値
-n1 = 40   # ループ変数の最大値
+n1 = 25   # ループ変数の最大値
 dn = 1    # ループ変数の増加間隔
 
 do for [n = n0:n1] {
 #
-splot "Diffusion_explicit.d"  index n using 1:2:3 with lines # n番目のデータのプロット
+splot "Diffusion_implicit.d"  index n using 1:2:3 with lines # n番目のデータのプロット
 }
 
 set out
