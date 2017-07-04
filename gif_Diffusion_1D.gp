@@ -9,6 +9,8 @@ set nokey
 set term gif animate optimize delay 10 size 960,960
 #Set the name of output file
 set output 'movie_1D_Euler_Dirichlet.gif'
+#set output 'movie_1D_Crank-Nicolson_Dirichlet.gif'
+
 
 #Set range for each axis
 set xrange[0:1]
@@ -20,6 +22,8 @@ set yrange[0:0.2]
 do for [n = 1:10] {
 #
 plot "Diffusion_1D_Euler_Dirichlet.dat"  index n using 1:2 with lines # n番目のデータのプロット
+#plot "Diffusion_1D_Crank-Nicolson_Dirichlet.dat"  index n using 1:2 with lines # n番目のデータのプロット
+
 }
 
 set out
