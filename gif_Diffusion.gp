@@ -31,8 +31,8 @@ dn = 1    # ループ変数の増加間隔
 
 do for [n = n0:n1] {
 #
-splot "Diffusion_explicit.d"  index n using 1:2:3 with lines # n番目のデータのプロット
-#splot "Diffusion_implicit.d"  index n using 1:2:3 with lines # n番目のデータのプロット
+splot "Diffusion_explicit.dat"  index n using 1:2:3 with lines # n番目のデータのプロット
+#splot "Diffusion_implicit.dat"  index n using 1:2:3 with lines # n番目のデータのプロット
 }
 
 set out
