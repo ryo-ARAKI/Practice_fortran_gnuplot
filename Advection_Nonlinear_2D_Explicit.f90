@@ -49,7 +49,8 @@ program main
   do i = 1, nmax
     do j = 2, mmax
       do k = 2, mmax
-        u(i+1,j,k) = u(i,j,k) -u(i,j,k) *(dt/dx) *(2.0d0*u(i,j,k) -u(i,j-1,k) -u(i,j,k-1))
+        !Upwind difference scheme
+        u(i+1,j,k) = u(i,j,k) +u(i,j,k) *(dt/dx) *(u(i,j-1,k) -2.0d0*u(i,j,k) +u(i,j,k-1))
       end do
     end do
 
@@ -64,12 +65,13 @@ program main
     end do
 
    !Set boundary conditions in the four corners
+    !Averaging two (calculated) data next to the one in the corner
     u(i+1, 1     , 1     ) = 0.5d0 * (u(i+1, 2  , 1     ) +u(i+1, 1     , 2  ))
     u(i+1, 1     , mmax+1) = 0.5d0 * (u(i+1, 2  , mmax+1) +u(i+1, 1     , mmax     ))
     u(i+1, mmax+1, 1     ) = 0.5d0 * (u(i+1, mmax     , 1     ) +u(i+1, mmax+1, 2  ))
     u(i+1, mmax+1, mmax+1) = 0.5d0 * (u(i+1, mmax, mmax+1     ) +u(i+1, mmax+1     , mmax))
 
-   !Copying the result to v
+   !Copy the result to v
     do k = 1, mmax+1
       do j = 1, mmax+1
         v(j,k) = u(i+1, j, k)
@@ -77,6 +79,7 @@ program main
     end do
 
    !Output for each 20 time iteration
+    !Output evary three data in the space
     if(mod(i,20) .eq. 0) then
       do k = 1, mmax+1, 3
         do j = 1, mmax+1, 3
